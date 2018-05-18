@@ -48,4 +48,20 @@ describe('LearnJS', function() {
       );
     });
   });
+
+  describe('answer section', function() {
+    it('can check a correct anser by hitting a button', function() {
+      var view = learnjs.problemView('1');
+      view.find('.answer').val('true');
+      view.find('.check-btn').click();
+      expect(view.find('.result').text()).toEqual('Correct!');
+    });
+
+    it('rejects an incorrect answer', function() {
+      var view = learnjs.problemView('1');
+      view.find('.answer').val('false');
+      view.find('.check-btn').click();
+      expect(view.find('.result').text()).toEqual('Incorrect!');
+    });
+  });
 });
