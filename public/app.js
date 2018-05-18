@@ -33,9 +33,11 @@ learnjs.problemView = function(data) {
 
   function checkAnswerClick() {
     if (checkAnswer()) {
-      resultFlash.text('Correct!');
+      var correctFlash = learnjs.template('correct-flash');
+      correctFlash.find('a').attr('href', '#problem-' + (problemNumber + 1));
+      learnjs.flashElement(resultFlash, correctFlash);
     } else {
-      resultFlash.text('Incorrect!');
+      learnjs.flashElement(resultFlash, 'Incorrect!');
     }
     return false;
   }
@@ -64,4 +66,15 @@ learnjs.appOnReady = function() {
     learnjs.showView(window.location.hash);
   };
   learnjs.showView(window.location.hash);
+};
+
+learnjs.flashElement = function(elem, content) {
+  elem.fadeOut('fast', function() {
+    elem.html(content);
+    elem.fadeIn();
+  });
+};
+
+learnjs.template = function(name) {
+  return $('.templates .' + name).clone();
 };
